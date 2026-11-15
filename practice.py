@@ -1,3 +1,4 @@
+#1일차: 평균 함수 연습
 def mean_of(number_list):
     if number_list == []:
         return None

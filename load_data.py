@@ -9,10 +9,14 @@ df["max_cycle"] = df.groupby("unit")["cycle"].transform("max")
 df["RUL"] = df["max_cycle"] - df["cycle"]
 df = df.drop(columns=["max_cycle"])
 engine1 = df[df["unit"] == 1]
-sensor = "s2"
-plt.plot(engine1["cycle"], engine1[sensor])
-plt.xlabel("cycle")
-plt.ylabel(sensor)
-plt.title(f"Engine 1 - cycle - {sensor}")
-plt.savefig(f"figures/engine1_{sensor}.png")
-plt.show()
+
+fig, axes = plt.subplots(7, 3, figsize=(15,20))
+axes = axes.flatten()
+
+for i in range(0, 21):
+    sensor = f"s{i+1}"
+    axes[i].plot(engine1["cycle"], engine1[sensor])
+    axes[i].set_title(sensor)
+
+plt.tight_layout()
+plt.savefig("figures/engine1_all_sensors.png")
